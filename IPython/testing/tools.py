@@ -294,7 +294,7 @@ class TempFileMixin(object):
                 # delete it.  I have no clue why
                 pass
 
-pair_fail_msg = ("Testing function {0}\n\n"
+pair_fail_msg = ("Testing {0}\n\n"
                 "In:\n"
                 "  {1!r}\n"
                 "Expected:\n"
@@ -317,9 +317,10 @@ def check_pairs(func, pairs):
     None. Raises an AssertionError if any output does not match the expected
     value.
     """
+    name = getattr(func, "func_name", getattr(func, "__name__", "<unknown>"))
     for inp, expected in pairs:
         out = func(inp)
-        assert out == expected, pair_fail_msg.format(func.func_name, inp, expected, out)
+        assert out == expected, pair_fail_msg.format(name, inp, expected, out)
 
 @contextmanager
 def mute_warn():
