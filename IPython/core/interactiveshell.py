@@ -92,7 +92,7 @@ dedent_re = re.compile(r'^\s+raise|^\s+return|^\s+pass')
 
 # store the builtin raw_input globally, and use this always, in case user code
 # overwrites it (like wx.py.PyShell does)
-raw_input_original = raw_input
+raw_input_original = py3compat.input
 
 def softspace(file, newvalue):
     """Copied from code.py, to remove the dependency"""
