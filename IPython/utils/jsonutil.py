@@ -15,6 +15,9 @@ import re
 import types
 from datetime import datetime
 
+from IPython.utils import py3compat
+next_attr_name = '__next__' if py3compat.PY3 else 'next'
+
 #-----------------------------------------------------------------------------
 # Globals and constants
 #-----------------------------------------------------------------------------
@@ -130,7 +133,7 @@ def json_clean(obj):
         return obj
 
     if isinstance(obj, container_to_list) or (
-        hasattr(obj, '__iter__') and hasattr(obj, 'next')):
+        hasattr(obj, '__iter__') and hasattr(obj, next_attr_name)):
         obj = list(obj)
         
     if isinstance(obj, list):
