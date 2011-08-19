@@ -289,7 +289,7 @@ class HubFactory(RegistrationFactory):
         # resubmit stream
         r = ZMQStream(ctx.socket(zmq.XREQ), loop)
         url = util.disambiguate_url(self.client_info['task'][-1])
-        r.setsockopt(zmq.IDENTITY, util.asbytes(self.session.session))
+        r.setsockopt(zmq.IDENTITY, self.session.bsession)
         r.connect(url)
 
         self.hub = Hub(loop=loop, session=self.session, monitor=sub, heartmonitor=self.heartmonitor,
