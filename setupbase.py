@@ -162,6 +162,7 @@ def find_package_data():
         pjoin(components, "underscore", "underscore-min.js"),
         pjoin(components, "moment", "moment.js"),
         pjoin(components, "moment", "min","moment.min.js"),
+        pjoin(components, "term.js", "src", "term.js"),
     ])
     
     # Ship all of Codemirror's CSS and JS
