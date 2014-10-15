@@ -10612,10 +10612,10 @@ span#autosave_status {
 .terminal {
   float: left;
   border: black solid 5px;
-  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
-  font-size: 11px;
+  font-family: monospace;
   color: white;
   background: black;
+  font-size: 14px;
 }
 .terminal-cursor {
   color: black;

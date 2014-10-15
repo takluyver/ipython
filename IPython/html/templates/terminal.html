@@ -59,4 +59,42 @@ data-ws-path="{{ws_path}}"
     {{super()}}
 
 <script src="{{ static_url("terminal/js/main.js") }}" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+
+    require(['jquery'],function($){
+     var switchfgbg = function(){
+            var sel = '.terminal';
+            this.theme = !this.theme;
+            var theme ={ 
+            false: {
+                bg:'black',
+                fg:'rgb(240, 240, 240)'
+                },
+            true: {
+                bg:'white',
+                fg:'black'
+                }
+            }
+        
+            $(sel).css('border-color',theme[this.theme].bg)
+            $(sel).css('background-color',theme[this.theme].bg)
+            $(sel).css('color',theme[this.theme].fg)
+
+    }
+
+    var sw = function(){
+        switchfgbg('.terminal')
+    }
+    $('#header>.container').append($('<button>').addClass('fa fa-adjust').attr('style','margin-top:14px').on('click',sw))
+    })
+
+</script>
+<style>
+.terminal-cursor {
+    background: gray;
+    font-size: 14px;
+}
+
+</style>
+
 {% endblock %}
