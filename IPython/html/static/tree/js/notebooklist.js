@@ -347,10 +347,10 @@ define([
 
     NotebookList.prototype.notebook_deleted = function(path, name) {
         // Remove the deleted notebook.
-        $( ":data(nbname)" ).each(function() {
+        $( ":data(name)" ).each(function() {
             var element = $( this );
-            if (element.data( "nbname" ) == d.name &&
-                element.data( "path" ) == d.path) {
+            if (element.data( "name" ) == name &&
+                element.data( "path" ) == path) {
                 element.remove();
             }
         });
