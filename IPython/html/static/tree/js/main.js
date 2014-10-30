@@ -53,8 +53,10 @@ require([
     login_widget = new loginwidget.LoginWidget('#login_widget', common_options);
 
     $('#new_notebook').click(function (e) {
-        contents.new_notebook(common_options.notebook_path,
+        contents.new(common_options.notebook_path, null,
             {
+                extension: '.ipynb',
+                extra_settings: {async: false},  // So we can open a window afterwards
                 success: function (data) {
                     window.open(
                         utils.url_join_encode(

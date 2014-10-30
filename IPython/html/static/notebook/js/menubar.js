@@ -89,8 +89,10 @@ define([
         this.element.find('#new_notebook').click(function () {
             // Create a new notebook in the same path as the current
             // notebook's path.
-            that.contents.new_notebook(that.notebook.notebook_path,
+            that.contents.new(that.notebook.notebook_path, null,
                 {
+                    extension: '.ipynb',
+                    extra_settings: {async: false},  // So we can open a window afterwards
                     success: function (data) {
                         window.open(
                             utils.url_join_encode(

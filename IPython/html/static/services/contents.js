@@ -77,7 +77,7 @@ define([
      * @param {Function} success
      * @param {Function} error
      */
-    Contents.prototype.load_file = function (path, name, options) {
+    Contents.prototype.load = function (path, name, options) {
         // We do the call with settings so we can set cache to false.
         var settings = {
             processData : false,
@@ -93,24 +93,39 @@ define([
 
 
     /**
-     * Creates a new notebook file at the specified directory path.
+     * Creates a new file at the specified directory path.
      *
-     * @method scroll_to_cell
-     * @param {String} path The path to create the new notebook at
+     * @method new
+     * @param {String} path The directory in which to create the new file
+     * @param {String} name The name of the file to create. Server picks if unspecified.
+     * @param {Object} options Includes 'extension' - the extension to use if name not specified.
      */
-    Contents.prototype.new_notebook = function(path, options) {
+    Contents.prototype.new = function(path, name, options) {
         var error = options.error || function() {};
+        var method, data, url;
+        if (name) {
+            method = "PUT";
+            url = this.api_url(path, name);
+        } else {
+            method = "POST";
+            url = this.api_url(path);
+            data = JSON.stringify({ext: options.extension});
+        }
         var settings = {
             processData : false,
-            type : "POST",
+            type : method,
+            data: data,
             dataType : "json",
             success : options.success || function() {},
             error : this.create_basic_error_handler(options.error)
         };
-        $.ajax(this.api_url(path), settings);
+        if (options.extra_settings) {
+            $.extend(settings, options.extra_settings);
+        }
+        $.ajax(url, settings);
     };
 
-    Contents.prototype.delete_file = function(name, path, options) {
+    Contents.prototype.delete = function(path, name, options) {
         var error_callback = options.error || function() {};
         var that = this;
         var settings = {
@@ -131,7 +146,7 @@ define([
         $.ajax(url, settings);
     };
 
-    Contents.prototype.rename_file = function(path, name, new_path, new_name, options) {
+    Contents.prototype.rename = function(path, name, new_path, new_name, options) {
         var data = {name: new_name, path: new_path};
         var settings = {
             processData : false,
@@ -146,7 +161,7 @@ define([
         $.ajax(url, settings);
     };
 
-    Contents.prototype.save_file = function(path, name, model, options) {
+    Contents.prototype.save = function(path, name, model, options) {
         // We do the call with settings so we can set cache to false.
         var settings = {
             processData : false,
@@ -163,7 +178,7 @@ define([
         $.ajax(url, settings);
     };
     
-    Contents.prototype.copy_file = function(to_path, to_name, from, options) {
+    Contents.prototype.copy = function(to_path, to_name, from, options) {
         var url, method;
         if (to_name) {
             url = this.api_url(to_path, to_name);
