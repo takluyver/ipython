@@ -2285,14 +2285,14 @@ define([
      */
     Notebook.prototype.load_notebook_error = function (error) {
         this.events.trigger('notebook_load_failed.Notebook', error);
-        var msg;
+        var msg = $("<div/>");
         if (error.name = utils.XHR_ERROR && error.xhr.status === 500) {
             utils.log_ajax_error(error.xhr, error.xhr_status, error.xhr_error);
-            msg = "An unknown error occurred while loading this notebook. " +
+            msg.text("An unknown error occurred while loading this notebook. " +
             "This version can load notebook formats " +
-            "v" + this.nbformat + " or earlier. See the server log for details.";
+            "v" + this.nbformat + " or earlier. See the server log for details.");
         } else {
-            msg = error.message;
+            msg.text(error.message);
         }
         dialog.modal({
             notebook: this,
