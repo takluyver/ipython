@@ -2286,7 +2286,7 @@ define([
     Notebook.prototype.load_notebook_error = function (error) {
         this.events.trigger('notebook_load_failed.Notebook', error);
         var msg = $("<div/>");
-        if (error.name = utils.XHR_ERROR && error.xhr.status === 500) {
+        if (error.name === utils.XHR_ERROR && error.xhr.status === 500) {
             utils.log_ajax_error(error.xhr, error.xhr_status, error.xhr_error);
             msg.text("An unknown error occurred while loading this notebook. " +
             "This version can load notebook formats " +
